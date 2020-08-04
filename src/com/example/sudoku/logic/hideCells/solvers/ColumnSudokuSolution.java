@@ -1,0 +1,40 @@
+package com.example.sudoku.logic.hideCells.solvers;
+
+
+import com.example.sudoku.logic.hideCells.CellHider;
+
+public class ColumnSudokuSolution implements SolveSudoku {
+
+    /**
+     * Solution by excluding already existing digits in column
+     *
+     * @param boardString board to solve
+     * @return true is successfully solved, false otherwise
+     */
+    public boolean tryToSolve(String[][] boardString) {
+        for (int i = 0; i < boardString.length; i++) {
+            for (int j = 0; j < boardString.length; j++) {
+                if (boardString[i][j].length() > 1) {
+                    boardString = removeCandidateCells(boardString, i, j);
+                }
+            }
+        }
+        return CellHider.checkIfSudokyIsSolved(boardString);
+    }
+
+    /**
+     * remove digits that are in the solved cell of the column
+     *
+     * @param boardString
+     * @param i           cell row coordinate
+     * @param j           cell column coordinate
+     * @return boardString
+     */
+    private String[][] removeCandidateCells(String[][] boardString, int i, int j) {
+        for (int x = 0; x < boardString.length; x++) {
+            if (boardString[x][j].length() == 1 && boardString[i][j].length() != 1)
+                boardString[i][j] = boardString[i][j].replace(boardString[x][j], "");
+        }
+        return boardString;
+    }
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPaneBaseGame" prefHeight="600.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sudoku.controller.GameController">
+    <stylesheets>
+        <URL value="@/com/example/sudoku/style/style.css" />
+    </stylesheets>
+   <children>
+      <Button fx:id="buttonBack" layoutX="14.0" layoutY="561.0" mnemonicParsing="false" onAction="#buttonBackOnAction" prefHeight="25.0" prefWidth="100.0" text="Назад" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />
+      <Separator layoutX="14.0" layoutY="559.0" prefWidth="200.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+   </children>
+</AnchorPane>
