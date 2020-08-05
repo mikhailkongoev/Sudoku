@@ -3,10 +3,8 @@ package com.example.sudoku.logic.generate.transformations;
 import java.util.Random;
 
 public class SwapRowsAndColumns implements BoardTransformer {
-    private Random random;
 
-    public SwapRowsAndColumns(Random random) {
-        this.random = random;
+    public SwapRowsAndColumns() {
     }
 
     @Override

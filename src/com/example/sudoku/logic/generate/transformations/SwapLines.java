@@ -16,7 +16,6 @@ public abstract class SwapLines implements BoardTransformer {
         int min = regionIndexIncludedFirstLine * regionSize;
         int secondLineIndex = min + random.nextInt(regionSize);
         while (secondLineIndex == firstLineIndex) secondLineIndex = min + random.nextInt(regionSize);
-        int[] lineIndices = {firstLineIndex, secondLineIndex};
-        return lineIndices;
+        return new int[]{firstLineIndex, secondLineIndex};
     }
 }

@@ -13,16 +13,18 @@ public class SquareSudokuSolution implements SolveSudoku {
     public boolean tryToSolve(String[][] boardString) {
         for (int i = 0; i < boardString.length; i++) {
             for (int j = 0; j < boardString[i].length; j++) {
-                if (boardString[i][j].length() > 1) boardString = removeCandidateCells(boardString, i, j);
+                if (boardString[i][j].length() > 1) {
+                    removeCandidateCells(boardString, i, j);
+                }
             }
         }
-        return CellHider.checkIfSudokyIsSolved(boardString);
+        return CellHider.checkIfSudokuIsSolved(boardString);
     }
 
     /**
      * remove digits that are in the solved cell of the square
      *
-     * @param boardString
+     * @param boardString to remove digits
      * @param i           cell row coordinate
      * @param j           cell column coordinate
      * @return boardString

@@ -11,12 +11,12 @@ public class ColumnPair implements SolveSudoku {
      */
     public boolean tryToSolve(String[][] boardString) {
         findPairs(boardString);
-        return CellHider.checkIfSudokyIsSolved(boardString);
+        return CellHider.checkIfSudokuIsSolved(boardString);
     }
 
     /**
      * find the same pair in the column and select the numbers from them
-     * @param boardString
+     * @param boardString to find a pair
      */
     private void findPairs(String[][] boardString) {
         String box = "";
@@ -36,7 +36,7 @@ public class ColumnPair implements SolveSudoku {
 
     /**
      * remove selected numbers from unresolved cells
-     * @param boardString
+     * @param boardString to remove cells
      * @param digit1 first digit from pair
      * @param digit2 second digit from pair
      */

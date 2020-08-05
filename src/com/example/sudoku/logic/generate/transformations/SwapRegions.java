@@ -16,7 +16,6 @@ public abstract class SwapRegions implements BoardTransformer {
         while (firstRegionIndex == secondRegionIndex) {
             secondRegionIndex = random.nextInt(regionSize);
         }
-        int[] lineIndices = {firstRegionIndex, secondRegionIndex};
-        return lineIndices;
+        return new int[]{firstRegionIndex, secondRegionIndex};
     }
 }

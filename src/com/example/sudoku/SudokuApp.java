@@ -25,7 +25,7 @@ public class SudokuApp extends Application {
 
 
     public static void main(String[] args) {
-        //Application.launch();
+        Application.launch();
 
         BoardFactory boardFactory = new BoardFactory();
         int[][] board = boardFactory.generateBoard(9);

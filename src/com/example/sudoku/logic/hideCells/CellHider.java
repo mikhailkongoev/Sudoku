@@ -1,6 +1,5 @@
 package com.example.sudoku.logic.hideCells;
 
-import com.example.sudoku.logic.generate.BoardFactory;
 import com.example.sudoku.logic.hideCells.solvers.*;
 
 import java.util.Random;
@@ -66,17 +65,17 @@ public class CellHider {
         solveSudokus[4] = new ColumnPair();
         solveSudokus[5] = new SquarePair();
 
-        boolean decisionResult = false;
+        boolean decisionResult;
         for (int j = 0; j < 5; j++) {
-            for (int i = 0; i < solveSudokus.length; i++) {
-                decisionResult = solveSudokus[i].tryToSolve(boardString);
-                if (decisionResult == true) return decisionResult;
+            for (SolveSudoku sudokus : solveSudokus) {
+                decisionResult = sudokus.tryToSolve(boardString);
+                if (decisionResult) return true;
             }
         }
-        return decisionResult;
+        return false;
     }
 
-    public static boolean checkIfSudokyIsSolved(String[][] boardString) {
+    public static boolean checkIfSudokuIsSolved(String[][] boardString) {
         boolean result = true;
         for (String[] strings : boardString) {
             for (String string : strings) {

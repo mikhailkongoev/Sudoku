@@ -6,7 +6,7 @@ public class SquarePair implements SolveSudoku {
 
     public boolean tryToSolve(String[][] boardString) {
         findFirstPair(boardString);
-        return CellHider.checkIfSudokyIsSolved(boardString);
+        return CellHider.checkIfSudokuIsSolved(boardString);
     }
 
     private void findFirstPair(String[][] boardString) {
@@ -37,7 +37,7 @@ public class SquarePair implements SolveSudoku {
     /**
      * remove selected numbers from unresolved cells in rows
      *
-     * @param boardString
+     * @param boardString to remove digits
      * @param digit1      first digit from pair
      * @param digit2      second digit from pair
      */

@@ -11,24 +11,24 @@ public class RowPair implements SolveSudoku {
          */
         public boolean tryToSolve(String[][] boardString) {
             findPairs(boardString);
-            return CellHider.checkIfSudokyIsSolved(boardString);
+            return CellHider.checkIfSudokuIsSolved(boardString);
         }
 
         /**
          * find the same pair in the rows and select the numbers from them
-         * @param boardString
+         * @param boardString to find a pair
          */
         private void findPairs(String[][] boardString) {
             String box = "";
             String digit1 = "";
             String digit2 = "";
-            for (int i = 0; i < boardString.length; i++) {
-                for (int j = 0; j < boardString[i].length; j++) {
-                    if (boardString[i][j].length() == 2 && boardString[i][j].equals(box)) {
-                        digit1 = boardString[i][j].substring(0, 1);
-                        digit2 = boardString[i][j].substring(1);
+            for (String[] strings : boardString) {
+                for (String string : strings) {
+                    if (string.length() == 2 && string.equals(box)) {
+                        digit1 = string.substring(0, 1);
+                        digit2 = string.substring(1);
                     }
-                    box = boardString[i][j];
+                    box = string;
                 }
             }
             removeDigits(boardString, digit1, digit2);
@@ -36,7 +36,7 @@ public class RowPair implements SolveSudoku {
 
         /**
          * remove selected numbers from unresolved cells in row
-         * @param boardString
+         * @param boardString to remove digits
          * @param digit1 first digit from pair
          * @param digit2 second digit from pair
          */

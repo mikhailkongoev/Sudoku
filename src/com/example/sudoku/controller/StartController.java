@@ -23,20 +23,18 @@ public class StartController implements Initializable {
     @FXML
     private Button buttonStart;
     @FXML
-    private ChoiceBox<BoardSize> choiseBoxFieldSize;
-
-    private ObservableList<BoardSize> listFieldSize;
+    private ChoiceBox<BoardSize> choiceBoxFieldSize;
 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        initChoiseBoxFieldSize();
+        initChoiceBoxFieldSize();
     }
 
-    private void initChoiseBoxFieldSize() {
-        listFieldSize = FXCollections.observableArrayList(new BoardSize(9, 9), new BoardSize(16, 16), new BoardSize(25, 25));
-        choiseBoxFieldSize.setItems(listFieldSize);
-        choiseBoxFieldSize.getSelectionModel().select(0);
+    private void initChoiceBoxFieldSize() {
+        ObservableList<BoardSize> listFieldSize = FXCollections.observableArrayList(new BoardSize(9, 9), new BoardSize(16, 16), new BoardSize(25, 25));
+        choiceBoxFieldSize.setItems(listFieldSize);
+        choiceBoxFieldSize.getSelectionModel().select(0);
     }
 
 
@@ -45,7 +43,7 @@ public class StartController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/com/example/sudoku/fxml/game.fxml"));
         AnchorPane page = loader.load();
-        BoardSize fs = choiseBoxFieldSize.getSelectionModel().getSelectedItem();
+        BoardSize fs = choiceBoxFieldSize.getSelectionModel().getSelectedItem();
 
         page.setPrefSize(30 * fs.getColumn() + 250, 30 * fs.getRow() + 250 + 40);
 

@@ -99,9 +99,7 @@ public class GameController implements Initializable {
                 cell.getStyleClass().add(cssClass);
                 count++;
 
-                cell.setOnMouseClicked((MouseEvent event) -> {
-                    System.out.println("Cell: " + cell.getValue() + " (" + cell.getX() + "," + cell.getY() + ")");
-                });
+                cell.setOnMouseClicked((MouseEvent event) -> System.out.println("Cell: " + cell.getValue() + " (" + cell.getX() + "," + cell.getY() + ")"));
 
                 cell.setOnKeyTyped((KeyEvent event) -> {
                     if (!Character.isDigit(event.getCharacter().charAt(0))) {

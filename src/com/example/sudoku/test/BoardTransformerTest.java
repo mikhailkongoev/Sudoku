@@ -7,6 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class BoardTransformerTest {
@@ -20,14 +21,14 @@ public class BoardTransformerTest {
 
     @Before
     public void before() {
-     //   Mockito.clearInvoсations(random);
+       Mockito.clearInvocations(random);
     }
 
     @Test
-    public void testThatRowsSwaped() {
+    public void testThatRowsSwapped() {
         int[][] line = new int[9][9];
         for (int i = 0; i < line.length; i++) {
-            for (int j = 0; j < line[i].length; j++) line[i][j] = i;
+            Arrays.fill(line[i], i);
         }
         Mockito.when(random.nextInt(line.length)).thenReturn(0);
         Mockito.when(random.nextInt((int) Math.sqrt(line.length))).thenReturn(1);
@@ -37,7 +38,7 @@ public class BoardTransformerTest {
     }
 
     @Test
-    public void testThatColumnsSwaped() {
+    public void testThatColumnsSwapped() {
         int[][] line = new int[9][9];
         for (int i = 0; i < line.length; i++) {
             for (int j = 0; j < line[i].length; j++) line[i][j] = j;
@@ -58,12 +59,12 @@ public class BoardTransformerTest {
     }
 
     @Test
-    public void testThatRegionsSwapedHorizontally() {
+    public void testThatRegionsSwappedHorizontally() {
         int[][] line = new int[9][9];
         for (int i = 0; i < line.length; i++) {
             for (int j = 0; j < line.length; j++) {
                 if (i < (int) Math.sqrt(line.length)) line[i][j] = 0;
-                else if (i >= (int) Math.sqrt(line.length) && i < (int) Math.sqrt(line.length) * 2) line[i][j] = 1;
+                else if (i < (int) Math.sqrt(line.length) * 2) line[i][j] = 1;
                 else line[i][j] = 2;
             }
         }
@@ -82,12 +83,12 @@ public class BoardTransformerTest {
     }
 
     @Test
-    public void testThatRegionsSwapedVertikally() {
-        int line[][] = new int[9][9];
-        for (int i = 0; i < line.length; i++) {
+    public void testThatRegionsSwappedVertically() {
+        int[][] line = new int[9][9];
+        for (int i = 0; line.length > i; i++) {
             for (int j = 0; j < line.length; j++) {
                 if (j < (int) Math.sqrt(line.length)) line[i][j] = 0;
-                else if (j >= (int) Math.sqrt(line.length) && j < (int) Math.sqrt(line.length) * 2) line[i][j] = 1;
+                else if (j < (int) Math.sqrt(line.length) * 2) line[i][j] = 1;
                 else line[i][j] = 2;
             }
         }
@@ -106,9 +107,9 @@ public class BoardTransformerTest {
     }
 
     @Test
-    public void testThatRowsAndColumnsSwaped() {
+    public void testThatRowsAndColumnsSwapped() {
         int[][] line = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-        BoardTransformer tableTransformer = new SwapRowsAndColumns(random);
+        BoardTransformer tableTransformer = new SwapRowsAndColumns();
         tableTransformer.transform(line);
         Assert.assertArrayEquals(new int[][]{{1, 4, 7}, {2, 5, 8}, {3, 6, 9}}, line);
     }
