@@ -30,14 +30,6 @@ public class BoardFactory {
         return board;
     }
 
-
-    public void printTheBoard(int[][] board) {
-        for (int[] ints : board) {
-            for (int anInt : ints) System.out.print(anInt + " ");
-            System.out.println();
-        }
-    }
-
     private int[] generateFirstLine(boolean needShuffle, int size) {
         int[] firstLine = new int[size];
         for (int i = 0; i < size; i++)

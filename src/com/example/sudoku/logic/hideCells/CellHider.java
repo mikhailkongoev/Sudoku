@@ -1,5 +1,6 @@
 package com.example.sudoku.logic.hideCells;
 
+import com.example.sudoku.logic.generate.BoardFactory;
 import com.example.sudoku.logic.hideCells.solvers.*;
 
 import java.util.Random;
@@ -11,13 +12,72 @@ public class CellHider {
         this.random = random;
     }
 
+    public int[][] choiceLevel(int size, int level) {
+
+        int[][] board1 = new int[size][size];
+        int[][] board2 = new int[size][size];
+        int[][] board3 = new int[size][size];
+
+        BoardFactory boardFactory = new BoardFactory();
+        int[][] board = boardFactory.generateBoard(size);
+
+        boolean a = false;
+        while (!a) {
+            int[][] unsorted = selectCell(board);
+            int count = countAmountOfHiddenCells(unsorted);
+            if (count >= 28 && count < 35) board1 = unsorted;
+            else if (count >= 35 && count < 42) board2 = unsorted;
+            else if (count >= 42) board3 = unsorted;
+            board = boardFactory.generateBoard(size);
+            if (cheсkTheBoardIsFull(board1) && cheсkTheBoardIsFull(board2) && cheсkTheBoardIsFull(board3)) a = true;
+        }
+
+        int[][] finalBoard = new int[size][size];
+        switch (level) {
+            case (1):
+                finalBoard = board1;
+                break;
+            case (2):
+                finalBoard = board2;
+                break;
+            case (3):
+                finalBoard = board3;
+                break;
+        }
+        printTheBoard(finalBoard);
+        return finalBoard;
+    }
+
+    private boolean cheсkTheBoardIsFull(int[][] board) {
+        boolean a = false;
+        for (int[] ints : board) {
+            for (int anInt : ints) {
+                if (anInt != 0) {
+                    a = true;
+                    break;
+                }
+            }
+        }
+        return a;
+    }
+
+    private int countAmountOfHiddenCells(int[][] preBoard) {
+        int count = 0;
+        for (int[] ints : preBoard) {
+            for (int j = 0; j < preBoard.length; j++) {
+                if (ints[j] == 0) count++;
+            }
+        }
+        return count;
+    }
+
     /**
      * The method randomly selects cells and hides their value as long as the Sudoku remains solvable
      *
      * @param board for hiding cells
      * @return board altered
      */
-    public int[][] selectCell(int[][] board) {
+    private int[][] selectCell(int[][] board) {
         int row;
         int column;
         boolean decisionResult = true;
@@ -31,14 +91,16 @@ public class CellHider {
                 if (!decisionResult) board[row][column] = box;
             }
         }
+        return board;
+    }
 
+    private void printTheBoard(int[][] board) {
         for (int[] ints : board) {
             for (int anInt : ints) {
                 System.out.print(anInt + " ");
             }
             System.out.println();
         }
-        return board;
     }
 
     private String[][] turnBoardToString(int[][] board) {

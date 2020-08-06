@@ -27,9 +27,8 @@ public class SquareSudokuSolution implements SolveSudoku {
      * @param boardString to remove digits
      * @param i           cell row coordinate
      * @param j           cell column coordinate
-     * @return boardString
      */
-    private String[][] removeCandidateCells(String[][] boardString, int i, int j) {
+    private void removeCandidateCells(String[][] boardString, int i, int j) {
         int squareLength = (int) Math.sqrt(boardString.length);
         int rowRegion = i / squareLength;
         int columnRegion = j / squareLength;
@@ -38,7 +37,6 @@ public class SquareSudokuSolution implements SolveSudoku {
                 if (boardString[x][y].length() == 1 && boardString[i][j].length() != 1)
                     boardString[i][j] = boardString[i][j].replace(boardString[x][y], "");
         }
-        return boardString;
     }
 }
 

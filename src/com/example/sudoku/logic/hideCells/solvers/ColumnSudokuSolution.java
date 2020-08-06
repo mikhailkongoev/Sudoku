@@ -28,13 +28,11 @@ public class ColumnSudokuSolution implements SolveSudoku {
      * @param boardString to remove candidates
      * @param i           cell row coordinate
      * @param j           cell column coordinate
-     * @return boardString
      */
-    private String[][] removeCandidateCells(String[][] boardString, int i, int j) {
+    private void removeCandidateCells(String[][] boardString, int i, int j) {
         for (int x = 0; x < boardString.length; x++) {
             if (boardString[x][j].length() == 1 && boardString[i][j].length() != 1)
                 boardString[i][j] = boardString[i][j].replace(boardString[x][j], "");
         }
-        return boardString;
     }
 }

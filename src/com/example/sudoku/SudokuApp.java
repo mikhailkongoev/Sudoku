@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import com.example.sudoku.logic.generate.BoardFactory;
 import com.example.sudoku.logic.hideCells.CellHider;
 
 import java.util.Random;
@@ -25,13 +24,10 @@ public class SudokuApp extends Application {
 
 
     public static void main(String[] args) {
-        Application.launch();
-
-        BoardFactory boardFactory = new BoardFactory();
-        int[][] board = boardFactory.generateBoard(9);
+       // Application.launch();
         Random random = new Random();
         CellHider cellHider = new CellHider(random);
-        cellHider.selectCell(board);
+        int[][] board = cellHider.choiceLevel(9, 3);
     }
 
 }

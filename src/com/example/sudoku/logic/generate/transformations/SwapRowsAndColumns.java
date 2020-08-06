@@ -1,6 +1,5 @@
 package com.example.sudoku.logic.generate.transformations;
 
-import java.util.Random;
 
 public class SwapRowsAndColumns implements BoardTransformer {
 
