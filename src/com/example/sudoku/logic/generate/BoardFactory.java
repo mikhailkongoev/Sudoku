@@ -20,8 +20,7 @@ public class BoardFactory {
     }
 
     private int[][] fillTheBoard(int size) {
-        boolean needShuffle = true;  // если указать false таблица будет иметь всегда один вид 123456789 * 456789123* 789123456 * 234567891 * 567891234 * и т.д.
-        int[] firstLine = generateFirstLine(needShuffle, size);
+        int[] firstLine = generateFirstLine(size);
         int[][] board = new int[size][size];
         for (int lineIndex = 0; lineIndex < firstLine.length; lineIndex++) {
             board[lineIndex] = moveByShift(firstLine.clone(), lineIndex, size);
@@ -30,22 +29,18 @@ public class BoardFactory {
         return board;
     }
 
-    private int[] generateFirstLine(boolean needShuffle, int size) {
+    private int[] generateFirstLine(int size) {
         int[] firstLine = new int[size];
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < firstLine.length; i++)
             firstLine[i] = i + 1;
-        if (needShuffle) firstLine = shuffleLine(firstLine);
-        return firstLine;
+        return shuffleLine(firstLine);
     }
 
     private int[] shuffleLine(int[] firstLine) {
-        List<Integer> list = Arrays.asList(Arrays.stream(firstLine).boxed().toArray(Integer[]::new));
-        Collections.shuffle(list);
-        int[] listArray = new int[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-            listArray[i] = list.get(i);
-        }
-        firstLine = listArray;
+        List<Integer> box = Arrays.asList(Arrays.stream(firstLine).boxed().toArray(Integer[]::new));
+        Collections.shuffle(box);
+        for (int i = 0; i < firstLine.length; i++)
+            firstLine[i] = box.get(i);
         return firstLine;
     }
 

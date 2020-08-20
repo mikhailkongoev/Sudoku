@@ -1,13 +1,11 @@
 package com.example.sudoku;
 
+import com.example.sudoku.logic.Sudoku;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import com.example.sudoku.logic.hideCells.CellHider;
-
-import java.util.Random;
 
 public class SudokuApp extends Application {
 
@@ -24,10 +22,9 @@ public class SudokuApp extends Application {
 
 
     public static void main(String[] args) {
-       // Application.launch();
-        Random random = new Random();
-        CellHider cellHider = new CellHider(random);
-        int[][] board = cellHider.choiceLevel(9, 3);
+        // Application.launch();
+        Sudoku sudoku = new Sudoku(9);
+        sudoku.printTheSudoku(sudoku.generateSudoku(), true);
+        System.out.print(sudoku.getLevel());
     }
-
 }

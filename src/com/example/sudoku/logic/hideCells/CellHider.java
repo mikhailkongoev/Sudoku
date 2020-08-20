@@ -1,74 +1,47 @@
 package com.example.sudoku.logic.hideCells;
 
 import com.example.sudoku.logic.generate.BoardFactory;
+import com.example.sudoku.logic.Cell;
 import com.example.sudoku.logic.hideCells.solvers.*;
+
 
 import java.util.Random;
 
 public class CellHider {
-    private Random random;
+    final Random RANDOM;
 
     public CellHider(Random random) {
-        this.random = random;
+        RANDOM = random;
     }
 
-    public int[][] choiceLevel(int size, int level) {
-
-        int[][] board1 = new int[size][size];
-        int[][] board2 = new int[size][size];
-        int[][] board3 = new int[size][size];
-
+    /**
+     * board is generated ready to game
+     *
+     * @param size for generate a board of the appropriate size
+     * @return board ready to game as an array of cells
+     */
+    public Cell[][] makeBoardWithHiddenCells(int size) {
         BoardFactory boardFactory = new BoardFactory();
-        int[][] board = boardFactory.generateBoard(size);
-
-        boolean a = false;
-        while (!a) {
-            int[][] unsorted = selectCell(board);
-            int count = countAmountOfHiddenCells(unsorted);
-            if (count >= 28 && count < 35) board1 = unsorted;
-            else if (count >= 35 && count < 42) board2 = unsorted;
-            else if (count >= 42) board3 = unsorted;
-            board = boardFactory.generateBoard(size);
-            if (cheсkTheBoardIsFull(board1) && cheсkTheBoardIsFull(board2) && cheсkTheBoardIsFull(board3)) a = true;
-        }
-
-        int[][] finalBoard = new int[size][size];
-        switch (level) {
-            case (1):
-                finalBoard = board1;
-                break;
-            case (2):
-                finalBoard = board2;
-                break;
-            case (3):
-                finalBoard = board3;
-                break;
-        }
-        printTheBoard(finalBoard);
-        return finalBoard;
-    }
-
-    private boolean cheсkTheBoardIsFull(int[][] board) {
-        boolean a = false;
-        for (int[] ints : board) {
-            for (int anInt : ints) {
-                if (anInt != 0) {
-                    a = true;
-                    break;
-                }
+        int[][] correctBoard = boardFactory.generateBoard(size);
+        int[][] intermediateBoard = fillIntermediateBoard(correctBoard);
+        int[][] boardWithHiddenCells = selectCell(intermediateBoard);
+        Cell[][] gameReadyBoard = new Cell[boardWithHiddenCells.length][boardWithHiddenCells.length];
+        for (int i = 0; i < gameReadyBoard.length; i++) {
+            for (int j = 0; j < gameReadyBoard.length; j++) {
+                if (boardWithHiddenCells[i][j] == 0)
+                    gameReadyBoard[i][j] = new Cell(correctBoard[i][j], true);
+                else gameReadyBoard[i][j] = new Cell(correctBoard[i][j], false);
             }
         }
-        return a;
+        return gameReadyBoard;
     }
 
-    private int countAmountOfHiddenCells(int[][] preBoard) {
-        int count = 0;
-        for (int[] ints : preBoard) {
-            for (int j = 0; j < preBoard.length; j++) {
-                if (ints[j] == 0) count++;
-            }
+    private int[][] fillIntermediateBoard(int[][] correctBoard) {
+        int[][] intermediateBoard = new int[correctBoard.length][correctBoard.length];
+        for (int i = 0; i < intermediateBoard.length; i++) {
+            System.arraycopy(correctBoard[i], 0, intermediateBoard[i], 0, intermediateBoard[i].length);
         }
-        return count;
+        return intermediateBoard;
     }
 
     /**
@@ -82,8 +55,8 @@ public class CellHider {
         int column;
         boolean decisionResult = true;
         while (decisionResult) {
-            row = random.nextInt(board.length);
-            column = random.nextInt(board.length);
+            row = RANDOM.nextInt(board.length);
+            column = RANDOM.nextInt(board.length);
             if (board[row][column] != 0) {
                 int box = board[row][column];
                 board[row][column] = 0;
@@ -92,15 +65,6 @@ public class CellHider {
             }
         }
         return board;
-    }
-
-    private void printTheBoard(int[][] board) {
-        for (int[] ints : board) {
-            for (int anInt : ints) {
-                System.out.print(anInt + " ");
-            }
-            System.out.println();
-        }
     }
 
     private String[][] turnBoardToString(int[][] board) {

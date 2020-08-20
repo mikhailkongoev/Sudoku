@@ -10,9 +10,8 @@ public class SwapRegionsHorizontally extends SwapRegions {
 
     @Override
     public void transform(int[][] board) {
-        int length = board.length;
-        int regionSize = (int) Math.sqrt(length);
-        int[] lineIndices = pickRegions(length);
+        int regionSize = (int) Math.sqrt(board.length);
+        int[] lineIndices = pickRegions(board.length);
         int firstRegionIndex = lineIndices[0];
         int secondRegionIndex = lineIndices[1];
         int[][] boardCopy = new int[board.length][board.length];

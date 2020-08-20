@@ -3,19 +3,19 @@ package com.example.sudoku.logic.generate.transformations;
 import java.util.Random;
 
 public abstract class SwapLines implements BoardTransformer {
-    private Random random;
+    final Random RANDOM;
 
     public SwapLines(Random random) {
-        this.random = random;
+        RANDOM = random;
     }
 
     protected int[] pickLines(int length) {
         int regionSize = (int) Math.sqrt(length);
-        int firstLineIndex = random.nextInt(length);
+        int firstLineIndex = RANDOM.nextInt(length);
         int regionIndexIncludedFirstLine = firstLineIndex / regionSize;
         int min = regionIndexIncludedFirstLine * regionSize;
-        int secondLineIndex = min + random.nextInt(regionSize);
-        while (secondLineIndex == firstLineIndex) secondLineIndex = min + random.nextInt(regionSize);
+        int secondLineIndex = min + RANDOM.nextInt(regionSize);
+        while (secondLineIndex == firstLineIndex) secondLineIndex = min + RANDOM.nextInt(regionSize);
         return new int[]{firstLineIndex, secondLineIndex};
     }
 }
