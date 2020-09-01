@@ -64,7 +64,25 @@ public class CellHider {
                 if (!decisionResult) board[row][column] = box;
             }
         }
+
         return board;
+    }
+
+    private void selctCell(int[][] board) {
+        int row;
+        int column;
+        boolean decisionResult = true;
+        while (decisionResult) {
+            row = RANDOM.nextInt(board.length);
+            column = RANDOM.nextInt(board.length);
+            if (board[row][column] != 0) {
+                int box = board[row][column];
+                board[row][column] = 0;
+                decisionResult = checkSudoku(board);
+                if (!decisionResult) board[row][column] = box;
+            }
+        }
+
     }
 
     private String[][] turnBoardToString(int[][] board) {

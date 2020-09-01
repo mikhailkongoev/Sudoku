@@ -7,7 +7,6 @@ import java.util.Random;
 public class Sudoku {
     final int SIZE;
     private int level;
-    private Cell cell;
 
     public int getLevel() {
         return level;
