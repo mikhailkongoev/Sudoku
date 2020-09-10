@@ -51,6 +51,7 @@ public class CellHider {
      * @return board altered
      */
     private int[][] selectCell(int[][] board) {
+        int count = 0;
         int row;
         int column;
         boolean decisionResult = true;
@@ -60,30 +61,16 @@ public class CellHider {
             if (board[row][column] != 0) {
                 int box = board[row][column];
                 board[row][column] = 0;
+                count++;
                 decisionResult = checkSudoku(board);
+                if (count < 30) decisionResult = true;
+                if (count > 58) decisionResult = false;
                 if (!decisionResult) board[row][column] = box;
             }
         }
-
         return board;
     }
 
-    private void selctCell(int[][] board) {
-        int row;
-        int column;
-        boolean decisionResult = true;
-        while (decisionResult) {
-            row = RANDOM.nextInt(board.length);
-            column = RANDOM.nextInt(board.length);
-            if (board[row][column] != 0) {
-                int box = board[row][column];
-                board[row][column] = 0;
-                decisionResult = checkSudoku(board);
-                if (!decisionResult) board[row][column] = box;
-            }
-        }
-
-    }
 
     private String[][] turnBoardToString(int[][] board) {
         String[][] boardString = new String[board.length][board.length];
@@ -116,6 +103,20 @@ public class CellHider {
                 if (decisionResult) return true;
             }
         }
+
+        int way = RANDOM.nextInt(2);
+        if (way == 1) return findPair(boardString);
+        return false;
+    }
+
+    private boolean findPair(String[][] boardString) {
+        String box = "";
+        for (int i = 0; i < boardString.length; i++) {
+            for (int j = 0; j < boardString[i].length; j++) {
+                if (boardString[i][j].equals(box) && !box.equals("")) return true;
+                if (boardString[i][j].length() == 2) box = boardString[i][j];
+            }
+        }
         return false;
     }
 
@@ -132,4 +133,5 @@ public class CellHider {
         return result;
     }
 }
+
 

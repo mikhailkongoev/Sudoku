@@ -45,10 +45,11 @@ public class Sudoku {
 
     private int sortBoardsByLevels(Cell[][] sudoku) {
             int count = countAmountOfHiddenCells(sudoku);
-            if (count >= 28 && count < 35) level =  1;
-            else if (count >= 35 && count < 42) level = 2;
-            else if (count >= 42) level = 3;
-            else generateSudoku();
+            System.out.println("count " + count);
+            if (count < 40) level =  1;
+            else if (count >= 40 && count < 47) level = 2;
+            else if (count >= 47) level = 3;
+
             return level;
     }
 
