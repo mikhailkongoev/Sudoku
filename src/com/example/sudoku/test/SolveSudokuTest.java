@@ -4,7 +4,6 @@ import com.example.sudoku.logic.hideCells.solvers.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Objects;
 
 public class SolveSudokuTest {
 

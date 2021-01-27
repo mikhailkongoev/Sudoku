@@ -8,6 +8,10 @@ public class SwapColumns extends SwapLines {
         super(random);
     }
 
+    /**
+     * Swap board columns
+     * @param board
+     */
     @Override
     public void transform(int[][] board) {
         int[] lineIndices = pickLines(board.length);

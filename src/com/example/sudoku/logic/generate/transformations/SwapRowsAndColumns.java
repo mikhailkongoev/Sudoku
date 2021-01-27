@@ -6,6 +6,10 @@ public class SwapRowsAndColumns implements BoardTransformer {
     public SwapRowsAndColumns() {
     }
 
+    /**
+     * columns become rows and rows become columns
+     * @param board
+     */
     @Override
     public void transform(int[][] board) {
         for (int i = 0; i < board.length; i++) {

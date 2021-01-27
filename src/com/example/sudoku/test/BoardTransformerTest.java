@@ -15,7 +15,7 @@ public class BoardTransformerTest {
     private static Random random;
 
     @BeforeClass
-    public static void beforeClass() {
+    public static void beforeClass()  {
         random = Mockito.mock(Random.class);
     }
 

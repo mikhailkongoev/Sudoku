@@ -8,6 +8,10 @@ public class SwapRegionsVertically extends SwapRegions {
         super(random);
     }
 
+    /**
+     * Swap regions vertically
+     * @param board
+     */
     @Override
     public void transform(int[][] board) {
         int regionSize = (int) Math.sqrt(board.length);

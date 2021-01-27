@@ -4,6 +4,12 @@ import com.example.sudoku.logic.hideCells.CellHider;
 
 public class SquarePair implements SolveSudoku {
 
+    /**
+     * Sovling the board by finding pairs in a square. We exclude numbers that contain pairs from
+     * other cells of the square
+     * @param boardString
+     * @return true is successfully solved, false otherwise
+     */
     public boolean tryToSolve(String[][] boardString) {
         findFirstPair(boardString);
         return CellHider.checkIfSudokuIsSolved(boardString);
@@ -65,9 +71,16 @@ public class SquarePair implements SolveSudoku {
         }
     }
 
+    /**
+     * remove selected numbers from unresolved cells in rows
+     *
+     * @param boardString to remove digits
+     * @param digit1      first digit from pair
+     * @param digit2      second digit from pair
+     */
     private void removeDigits(String[][] boardString, String digit1, String digit2, int i, int j) {
         int squareLength = (int) Math.sqrt(boardString.length);
-        int rowRegion = i / squareLength;
+        int rowRegion = i / squareLength;  
         int columnRegion = j / squareLength;
         for (int x = rowRegion * squareLength; x < rowRegion * squareLength + squareLength; x++) {
             for (int y = columnRegion * squareLength; y < columnRegion * squareLength + squareLength; y++) {
@@ -80,10 +93,4 @@ public class SquarePair implements SolveSudoku {
     }
 }
 
-    /**
-     * remove selected numbers from unresolved cells in rows
-     *
-     * @param boardString to remove digits
-     * @param digit1      first digit from pair
-     * @param digit2      second digit from pair
-     */
+

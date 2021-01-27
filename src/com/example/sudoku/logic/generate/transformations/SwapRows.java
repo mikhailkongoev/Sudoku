@@ -7,6 +7,10 @@ public class SwapRows extends SwapLines {
         super(random);
     }
 
+    /**
+     * Swap board rows
+     * @param board
+     */
     @Override
     public void transform(int[][] board) {
         int[] lineIndices = pickLines(board.length);

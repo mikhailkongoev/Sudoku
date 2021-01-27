@@ -4,7 +4,12 @@ import com.example.sudoku.guiData.BoardSize;
 import com.example.sudoku.guiData.CellTextField;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
+import java.util.Random;
 import java.util.ResourceBundle;
+
+import com.example.sudoku.logic.*;
+import com.example.sudoku.logic.hideCells.CellHider;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +28,8 @@ import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import com.example.sudoku.logic.generate.BoardFactory;
 
+import static com.example.sudoku.logic.Level.EASY;
+
 public class GameController implements Initializable {
 
     @FXML
@@ -31,16 +38,17 @@ public class GameController implements Initializable {
     private Button buttonBack;
 
     private GridPane gridPaneGameField;
-    private int[][] board;
+    private Sudoku sudoku;
 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        SudokuStorage sudokuStorage;
+        if (Initializer.getInstance() != null) sudokuStorage = Initializer.getInstance().getSudokuStorage();
     }
 
-    public void createField(BoardSize fs) {
-        generateBoard(fs);
+    public void createField(FieldSize fieldSize) {
+        gettingSudoku(EASY);
         gridPaneGameField = new GridPane();
 
         gridPaneGameField.setGridLinesVisible(false);
@@ -55,8 +63,8 @@ public class GameController implements Initializable {
         columnConstraints.clear();
         ObservableList<RowConstraints> rowConstraints = gridPaneGameField.getRowConstraints();
         rowConstraints.clear();
-        int column = fs.getColumn();
-        int row = fs.getRow();
+        int column = fieldSize.getSize();
+        int row = fieldSize.getSize();
 
         for (int i = 0; i < column; i++) {
             columnConstraints.add(new ColumnConstraints(10, 100, Double.MAX_VALUE));
@@ -66,12 +74,12 @@ public class GameController implements Initializable {
             rowConstraints.add(new RowConstraints(10, 100, Double.MAX_VALUE));
         }
 
-        initCell(fs);
+        initCell(fieldSize);
     }
 
-    private void initCell(BoardSize fs) {
-        int column = fs.getColumn();
-        int row = fs.getRow();
+    private void initCell(FieldSize fieldSize) {
+        int column = fieldSize.getSize();
+        int row = fieldSize.getSize();
         int countNextRow = 0;
         int count = 0;
         int countRow = (int) Math.sqrt(row);
@@ -87,8 +95,9 @@ public class GameController implements Initializable {
             }
             countNextRow++;
 
+           sudoku = gettingSudoku(EASY);
             for (int j = 0; j < row; j++) {
-                CellTextField cell = new CellTextField(j, i, board[i][j]);
+                CellTextField cell = new CellTextField(j, i, sudoku.getCells()[i][j].getCORRECT_VALUE());
                 cell.setAlignment(Pos.CENTER);
 
                 if (count >= countColumn) {
@@ -121,9 +130,9 @@ public class GameController implements Initializable {
         }
     }
 
-    private void generateBoard(BoardSize fs) {
-        BoardFactory boardfactory = new BoardFactory();
-        board = boardfactory.generateBoard(fs.getColumn());
+
+    private Sudoku gettingSudoku(Level level) {
+        return Initializer.getInstance().getSudokuStorage().giveRequesterSudoku(level);
     }
 
     @FXML

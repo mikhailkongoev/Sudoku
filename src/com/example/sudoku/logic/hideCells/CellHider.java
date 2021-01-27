@@ -1,6 +1,5 @@
 package com.example.sudoku.logic.hideCells;
 
-import com.example.sudoku.logic.generate.BoardFactory;
 import com.example.sudoku.logic.Cell;
 import com.example.sudoku.logic.hideCells.solvers.*;
 
@@ -17,12 +16,10 @@ public class CellHider {
     /**
      * board is generated ready to game
      *
-     * @param size for generate a board of the appropriate size
+     * @param correctBoard for hide cells in it
      * @return board ready to game as an array of cells
      */
-    public Cell[][] makeBoardWithHiddenCells(int size) {
-        BoardFactory boardFactory = new BoardFactory();
-        int[][] correctBoard = boardFactory.generateBoard(size);
+    public Cell[][] makeBoardWithHiddenCells(int[][] correctBoard) {
         int[][] intermediateBoard = fillIntermediateBoard(correctBoard);
         int[][] boardWithHiddenCells = selectCell(intermediateBoard);
         Cell[][] gameReadyBoard = new Cell[boardWithHiddenCells.length][boardWithHiddenCells.length];
@@ -111,10 +108,10 @@ public class CellHider {
 
     private boolean findPair(String[][] boardString) {
         String box = "";
-        for (int i = 0; i < boardString.length; i++) {
-            for (int j = 0; j < boardString[i].length; j++) {
-                if (boardString[i][j].equals(box) && !box.equals("")) return true;
-                if (boardString[i][j].length() == 2) box = boardString[i][j];
+        for (String[] strings : boardString) {
+            for (String string : strings) {
+                if (string.equals(box) && !box.equals("")) return true;
+                if (string.length() == 2) box = string;
             }
         }
         return false;

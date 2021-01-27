@@ -5,6 +5,8 @@ import com.example.sudoku.guiData.BoardSize;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.example.sudoku.logic.FieldSize;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,7 +34,10 @@ public class StartController implements Initializable {
     }
 
     private void initChoiceBoxFieldSize() {
-        ObservableList<BoardSize> listFieldSize = FXCollections.observableArrayList(new BoardSize(9, 9), new BoardSize(16, 16), new BoardSize(25, 25));
+        ObservableList<BoardSize> listFieldSize = FXCollections.observableArrayList(
+                new BoardSize(FieldSize.SMALL, 9, 9),
+                new BoardSize(FieldSize.MEDIUM, 16, 16),
+                new BoardSize(FieldSize.LARGE, 25, 25));
         choiceBoxFieldSize.setItems(listFieldSize);
         choiceBoxFieldSize.getSelectionModel().select(0);
     }
@@ -44,14 +49,13 @@ public class StartController implements Initializable {
         loader.setLocation(getClass().getResource("/com/example/sudoku/fxml/game.fxml"));
         AnchorPane page = loader.load();
         BoardSize fs = choiceBoxFieldSize.getSelectionModel().getSelectedItem();
-
         page.setPrefSize(30 * fs.getColumn() + 250, 30 * fs.getRow() + 250 + 40);
 
         Stage stage = (Stage) anchorPaneBaseStart.getScene().getWindow();
         Scene scene = new Scene(page);
         stage.setScene(scene);
         GameController controller = loader.getController();
-        controller.createField(fs);
+        controller.createField(FieldSize.SMALL);
 
     }
 

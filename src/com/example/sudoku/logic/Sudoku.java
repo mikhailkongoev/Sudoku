@@ -1,63 +1,81 @@
 package com.example.sudoku.logic;
 
-import com.example.sudoku.logic.hideCells.CellHider;
-
-import java.util.Random;
-
 public class Sudoku {
-    final int SIZE;
-    private int level;
+    private Cell[][] cells;
+    private Level level;
 
-    public int getLevel() {
-        return level;
+    public Cell[][] getCells() {
+        return cells;
+    }
+
+    public void setCells(Cell[][] cells) {
+        this.cells = cells;
+    }
+
+    public Level getLevel() {
+        return determinateLevel();
     }
 
 
-    public Sudoku(int size) {
-        SIZE = size;
+    public Sudoku(Cell[][] cellsArray) {
+        this.cells = cellsArray;
+    }
+
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null) {
+            return false;
+        }
+        boolean comparison = true;
+        if (object.getClass() == this.getClass()) {
+            Sudoku sudoku = (Sudoku) object;
+            for (int i = 0; i < this.cells.length; i++) {
+                for (int j = 0; j < this.cells.length; j++) {
+                    comparison = (this.cells[i][j].equals(sudoku.cells[i][j]));
+                    if (!comparison) return false;
+                }
+            }
+            return comparison;
+        } else return false;
     }
 
     /**
-     * generate sudoku board as an object that is an array of cells
-     * @return sudoku board ready to game, and containing information about the correct value of cells, about the hidden cells and about the level
-     */
-    public Cell[][] generateSudoku() {
-        CellHider cellHider = new CellHider(new Random());
-        Cell[][] sudoku = cellHider.makeBoardWithHiddenCells(SIZE);
-        level = sortBoardsByLevels(sudoku);
-        return sudoku;
-    }
-
-    /**
-     *
-     * @param sudoku for printing
      * @param clearingHidden to print the correct sudoku pass false, to print the sudoku with hidden cells pass true
      */
-    public void printTheSudoku(Cell[][] sudoku, boolean clearingHidden) {
-        for (Cell[] cells : sudoku) {
+    public void printSudoku(boolean clearingHidden) {
+        for (Cell[] cells : cells) {
             for (Cell value : cells) {
-               if (clearingHidden && value.HIDING) System.out.print("0" + " ");
-              else System.out.print(value.CORRECT_VALUE + " ");
+                if (clearingHidden && value.isHIDING()) System.out.print("0" + " ");
+                else System.out.print(value.getCORRECT_VALUE() + " ");
             }
             System.out.println();
         }
     }
 
-    private int sortBoardsByLevels(Cell[][] sudoku) {
-            int count = countAmountOfHiddenCells(sudoku);
-            System.out.println("count " + count);
-            if (count < 40) level =  1;
-            else if (count >= 40 && count < 47) level = 2;
-            else if (count >= 47) level = 3;
-
-            return level;
+    /**
+     * Depending on how many hidden cells the difficulty level is assigned
+     *
+     * @return sudoku level
+     */
+    private Level determinateLevel() {
+        int numberOfHiddenCells = countNumberOfHiddenCells();
+        if (numberOfHiddenCells < 40) level = Level.EASY;
+        else if (numberOfHiddenCells < 47) level = level.MIDDLE;
+        else level = level.HARD;
+        return level;
     }
 
-    private int countAmountOfHiddenCells(Cell[][] sudoku) {
+    /**
+     * Count the number of cells that were hidden from user
+     *
+     * @return number of hiding cells
+     */
+    private int countNumberOfHiddenCells() {
         int count = 0;
-        for (Cell[] cells : sudoku) {
+        for (Cell[] cells : cells) {
             for (Cell value : cells) {
-                if (value.HIDING) count++;
+                if (value.isHIDING()) count++;
             }
         }
         return count;
