@@ -2,7 +2,7 @@ package com.example.sudoku.test;
 
 import com.example.sudoku.logic.*;
 import com.example.sudoku.logic.generate.BoardFactory;
-import com.example.sudoku.logic.hideCells.CellHider;
+import com.example.sudoku.logic.hidecells.CellHider;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;

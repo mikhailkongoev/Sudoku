@@ -1,7 +1,7 @@
 package com.example.sudoku.logic;
 
 import com.example.sudoku.logic.generate.BoardFactory;
-import com.example.sudoku.logic.hideCells.CellHider;
+import com.example.sudoku.logic.hidecells.CellHider;
 
 import java.util.Random;
 

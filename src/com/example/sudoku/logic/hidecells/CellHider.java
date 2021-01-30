@@ -1,7 +1,7 @@
-package com.example.sudoku.logic.hideCells;
+package com.example.sudoku.logic.hidecells;
 
 import com.example.sudoku.logic.Cell;
-import com.example.sudoku.logic.hideCells.solvers.*;
+import com.example.sudoku.logic.hidecells.solvers.*;
 
 
 import java.util.Random;

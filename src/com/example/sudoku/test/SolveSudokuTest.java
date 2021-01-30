@@ -1,6 +1,6 @@
 package com.example.sudoku.test;
 
-import com.example.sudoku.logic.hideCells.solvers.*;
+import com.example.sudoku.logic.hidecells.solvers.*;
 import org.junit.Assert;
 import org.junit.Test;
 

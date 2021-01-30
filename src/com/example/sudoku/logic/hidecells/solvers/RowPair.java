@@ -1,7 +1,6 @@
-package com.example.sudoku.logic.hideCells.solvers;
+package com.example.sudoku.logic.hidecells.solvers;
 
-import com.example.sudoku.SudokuApp;
-import com.example.sudoku.logic.hideCells.CellHider;
+import com.example.sudoku.logic.hidecells.CellHider;
 
 public class RowPair implements SolveSudoku {
 

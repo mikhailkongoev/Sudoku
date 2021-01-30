@@ -1,4 +1,4 @@
-package com.example.sudoku.guiData;
+package com.example.sudoku.guidata;
 
 import com.example.sudoku.logic.FieldSize;
 

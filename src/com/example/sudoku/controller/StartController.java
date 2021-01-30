@@ -1,6 +1,6 @@
 package com.example.sudoku.controller;
 
-import com.example.sudoku.guiData.BoardSize;
+import com.example.sudoku.guidata.BoardSize;
 
 import java.io.IOException;
 import java.net.URL;

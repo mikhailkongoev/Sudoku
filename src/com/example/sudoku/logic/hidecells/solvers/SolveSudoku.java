@@ -1,4 +1,4 @@
-package com.example.sudoku.logic.hideCells.solvers;
+package com.example.sudoku.logic.hidecells.solvers;
 
 public interface SolveSudoku {
 

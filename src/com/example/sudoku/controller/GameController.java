@@ -1,15 +1,11 @@
 package com.example.sudoku.controller;
 
-import com.example.sudoku.guiData.BoardSize;
-import com.example.sudoku.guiData.CellTextField;
+import com.example.sudoku.guidata.CellTextField;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 import com.example.sudoku.logic.*;
-import com.example.sudoku.logic.hideCells.CellHider;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +22,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
-import com.example.sudoku.logic.generate.BoardFactory;
+
 
 import static com.example.sudoku.logic.Level.EASY;
 
