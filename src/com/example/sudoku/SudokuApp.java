@@ -22,7 +22,5 @@ public class SudokuApp extends Application {
 
     public static void main(String[] args) {
          Application.launch();
-        //    Initializer.getInstance().init(SMALL);
-
     }
 }

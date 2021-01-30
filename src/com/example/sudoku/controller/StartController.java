@@ -35,9 +35,9 @@ public class StartController implements Initializable {
 
     private void initChoiceBoxFieldSize() {
         ObservableList<BoardSize> listFieldSize = FXCollections.observableArrayList(
-                new BoardSize(FieldSize.SMALL, 9, 9),
-                new BoardSize(FieldSize.MEDIUM, 16, 16),
-                new BoardSize(FieldSize.LARGE, 25, 25));
+                new BoardSize(FieldSize.SMALL),
+                new BoardSize(FieldSize.MEDIUM),
+                new BoardSize(FieldSize.LARGE));
         choiceBoxFieldSize.setItems(listFieldSize);
         choiceBoxFieldSize.getSelectionModel().select(0);
     }

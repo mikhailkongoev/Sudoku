@@ -21,10 +21,10 @@ public class BoardSize {
 
 
 
-    public BoardSize(FieldSize fieldSize, int row, int column) {
+    public BoardSize(FieldSize fieldSize) {
         this.fieldsize = fieldSize;
-        this.row = row;
-        this.column = column;
+        this.row = fieldSize.getSize();
+        this.column = fieldSize.getSize();
     }
 
 
