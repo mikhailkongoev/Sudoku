@@ -49,7 +49,7 @@ public class SudokuGenerator {
             boardFactory.setFieldSize(fieldSize);
 
             for (int i = 0; i < 100; i++) {
-                Sudoku sudoku = new Sudoku(cellHider.makeBoardWithHiddenCells(boardFactory.generateBoard()));
+                Sudoku sudoku = new Sudoku(cellHider.makeBoardWithHiddenCells(boardFactory.generateBoard()), boardFactory.getFieldSize());
                 sudokuStorage.add(sudoku);
             }
         });

@@ -45,9 +45,16 @@ public class ColumnPair implements SolveSudoku {
      */
     private void removeDigits(String[][] boardString, int columnIndex, String box) {
         for (int i = 0; i < boardString.length; i++) {
-            if (boardString[i][columnIndex].length() > 1 && !boardString[i][columnIndex].equals(box)) {
-                boardString[i][columnIndex] = boardString[i][columnIndex].replace(box.substring(0, 1), "");
-                boardString[i][columnIndex] = boardString[i][columnIndex].replace(box.substring(1), "");
+            try {
+                if (boardString[i][columnIndex].length() > 1 &&
+                    !boardString[i][columnIndex].equals(box)) {
+                    boardString[i][columnIndex] =
+                        boardString[i][columnIndex].replace(box.substring(0, 1), "");
+                    boardString[i][columnIndex] =
+                        boardString[i][columnIndex].replace(box.substring(1), "");
+                }
+            } catch (Exception e) {
+                System.out.println(123);
             }
         }
     }

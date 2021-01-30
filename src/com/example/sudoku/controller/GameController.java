@@ -23,9 +23,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
-
-import static com.example.sudoku.logic.Level.EASY;
-
 public class GameController implements Initializable {
 
     @FXML
@@ -34,17 +31,12 @@ public class GameController implements Initializable {
     private Button buttonBack;
 
     private GridPane gridPaneGameField;
-    private Sudoku sudoku;
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        SudokuStorage sudokuStorage;
-        if (Initializer.getInstance() != null) sudokuStorage = Initializer.getInstance().getSudokuStorage();
     }
 
-    public void createField(FieldSize fieldSize) {
-        gettingSudoku(EASY);
+    public void createField(FieldSize fieldSize, Level level) {
         gridPaneGameField = new GridPane();
 
         gridPaneGameField.setGridLinesVisible(false);
@@ -70,10 +62,10 @@ public class GameController implements Initializable {
             rowConstraints.add(new RowConstraints(10, 100, Double.MAX_VALUE));
         }
 
-        initCell(fieldSize);
+        initCell(fieldSize, level);
     }
 
-    private void initCell(FieldSize fieldSize) {
+    private void initCell(FieldSize fieldSize, Level level) {
         int column = fieldSize.getSize();
         int row = fieldSize.getSize();
         int countNextRow = 0;
@@ -91,9 +83,9 @@ public class GameController implements Initializable {
             }
             countNextRow++;
 
-           sudoku = gettingSudoku(EASY);
+            Sudoku sudoku = gettingSudoku(fieldSize, level);
             for (int j = 0; j < row; j++) {
-                CellTextField cell = new CellTextField(j, i, sudoku.getCells()[i][j].getCORRECT_VALUE());
+                CellTextField cell = new CellTextField(j, i, sudoku.getCells()[i][j].getCorrectValue());
                 cell.setAlignment(Pos.CENTER);
 
                 if (count >= countColumn) {
@@ -127,8 +119,15 @@ public class GameController implements Initializable {
     }
 
 
-    private Sudoku gettingSudoku(Level level) {
-        return Initializer.getInstance().getSudokuStorage().giveRequesterSudoku(level);
+    private Sudoku gettingSudoku(FieldSize fieldSize, Level level) {
+        Sudoku sudoku = Initializer.getInstance().getSudokuStorage().giveRequesterSudoku(fieldSize, level);
+
+        while (sudoku == null) {
+            Initializer.getInstance().getSudokuGenerator().fillStorage();
+            sudoku = Initializer.getInstance().getSudokuStorage().giveRequesterSudoku(fieldSize, level);
+        }
+
+        return sudoku;
     }
 
     @FXML

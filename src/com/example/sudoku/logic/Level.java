@@ -1,23 +1,30 @@
 package com.example.sudoku.logic;
 
+import java.security.SecureRandom;
+
 public enum Level {
 
     EASY("легкий"),
     MIDDLE("средний"),
     HARD("сложный");
 
-    private String tittle;
+    private String title;
+    private static final SecureRandom random = new SecureRandom();
 
-    public String getTittle() {
-        return tittle;
+    public String getTitle() {
+        return title;
     }
 
-    Level(String tittle) {
-        this.tittle = tittle;
+    public static Level getRandomLevel(){
+        return Level.values()[random.nextInt(Level.values().length)];
+    }
+
+    Level(String title) {
+        this.title = title;
     }
 
     @Override
     public String toString() {
-        return tittle;
+        return title;
     }
 }

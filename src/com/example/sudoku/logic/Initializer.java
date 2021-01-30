@@ -17,6 +17,10 @@ public class Initializer {
         return sudokuStorage;
     }
 
+    public SudokuGenerator getSudokuGenerator() {
+        return sudokuGenerator;
+    }
+
     private Initializer() {
     }
 

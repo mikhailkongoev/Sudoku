@@ -3,6 +3,7 @@ package com.example.sudoku.logic;
 public class Sudoku {
     private Cell[][] cells;
     private Level level;
+    private FieldSize fieldSize;
 
     public Cell[][] getCells() {
         return cells;
@@ -17,8 +18,9 @@ public class Sudoku {
     }
 
 
-    public Sudoku(Cell[][] cellsArray) {
+    public Sudoku(Cell[][] cellsArray, FieldSize fieldSize) {
         this.cells = cellsArray;
+        this.fieldSize = fieldSize;
     }
 
 
@@ -44,10 +46,10 @@ public class Sudoku {
      * @param clearingHidden to print the correct sudoku pass false, to print the sudoku with hidden cells pass true
      */
     public void printSudoku(boolean clearingHidden) {
-        for (Cell[] cells : cells) {
-            for (Cell value : cells) {
-                if (clearingHidden && value.isHIDING()) System.out.print("0" + " ");
-                else System.out.print(value.getCORRECT_VALUE() + " ");
+        for (Cell[] row : cells) {
+            for (Cell value : row) {
+                if (clearingHidden && value.isHidden()) System.out.print("0" + " ");
+                else System.out.print(value.getCorrectValue() + " ");
             }
             System.out.println();
         }
@@ -61,8 +63,8 @@ public class Sudoku {
     private Level determinateLevel() {
         int numberOfHiddenCells = countNumberOfHiddenCells();
         if (numberOfHiddenCells < 40) level = Level.EASY;
-        else if (numberOfHiddenCells < 47) level = level.MIDDLE;
-        else level = level.HARD;
+        else if (numberOfHiddenCells < 47) level = Level.MIDDLE;
+        else level = Level.HARD;
         return level;
     }
 
@@ -73,12 +75,15 @@ public class Sudoku {
      */
     private int countNumberOfHiddenCells() {
         int count = 0;
-        for (Cell[] cells : cells) {
-            for (Cell value : cells) {
-                if (value.isHIDING()) count++;
+        for (Cell[] row : cells) {
+            for (Cell value : row) {
+                if (value.isHidden()) count++;
             }
         }
         return count;
     }
 
+    public FieldSize getFieldSize() {
+        return fieldSize;
+    }
 }

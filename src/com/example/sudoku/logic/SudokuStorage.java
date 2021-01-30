@@ -1,35 +1,32 @@
 package com.example.sudoku.logic;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 
 public class SudokuStorage {
-    private final Map<Level, ArrayList<Sudoku>> storage;
-
-    public Map<Level, ArrayList<Sudoku>> getStorage() {
-        return storage;
-    }
+    private final Map<Level, Map<FieldSize, List<Sudoku>>> storage;
 
     public SudokuStorage() {
         storage = new EnumMap<>(Level.class);
+        Arrays.stream(Level.values()).forEach(level -> {
+            Map<FieldSize, List<Sudoku>> map = new EnumMap<>(FieldSize.class);
+            storage.put(level, map);
+
+            Arrays.stream(FieldSize.values()).forEach(fieldSize -> map.put(fieldSize, new ArrayList<>()));
+        });
     }
 
     /**
-     * adds sudoku to the list of suitable levels. If there is no list, creates one and adds sudoku to it.
+     * adds sudoku to the list of suitable levels and fiel size.
      *
      * @param sudoku to add to the list
      */
     public void add(Sudoku sudoku) {
-        if (storage.containsKey(sudoku.getLevel())) {
-            storage.get(sudoku.getLevel()).add(sudoku);
-        } else {
-            ArrayList<Sudoku> list = new ArrayList<>();
-            list.add(sudoku);
-            storage.put(sudoku.getLevel(), list);
-        }
-
+        storage.get(sudoku.getLevel()).get(sudoku.getFieldSize()).add(sudoku);
     }
 
 
@@ -39,14 +36,16 @@ public class SudokuStorage {
      * @param level to select the sudoku of the desired level
      * @return sudoku of the requested level
      */
-    public Sudoku giveRequesterSudoku(Level level) {
+    public Sudoku giveRequesterSudoku(FieldSize fieldSize, Level level) {
         Sudoku sudoku = null;
-        if (storage.get(level).isEmpty()) {
+
+        if (storage.get(level).get(fieldSize).isEmpty()) {
             System.out.println("Судоку запрашиваемого уровня закончились");
         } else {
-            sudoku = storage.get(level).get(0);
-            storage.get(level).remove(0);
+            sudoku = storage.get(level).get(fieldSize).get(0);
+            storage.get(level).get(fieldSize).remove(0);
         }
+
         return sudoku;
     }
 }

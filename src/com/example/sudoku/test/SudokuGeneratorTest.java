@@ -25,10 +25,10 @@ public class SudokuGeneratorTest {
         Cell[][] hidingArray = {{new Cell(1, true), new Cell(1, true)}, {new Cell(1, true), new Cell(1, true)}};
         Mockito.when(boardFactory.generateBoard()).thenReturn(array);
         Mockito.when(cellHider.makeBoardWithHiddenCells(array)).thenReturn(hidingArray);
-        Sudoku sudoku = new Sudoku(hidingArray);
+        Sudoku sudoku = new Sudoku(hidingArray, FieldSize.SMALL);
         SudokuStorage sudokuStorage = new SudokuStorage();
         sudokuStorage.add(sudoku);
-        Sudoku su = sudokuStorage.giveRequesterSudoku(sudoku.getLevel());
+        Sudoku su = sudokuStorage.giveRequesterSudoku(FieldSize.SMALL, sudoku.getLevel());
         Assert.assertTrue(sudoku.equals(su));
     }
 }
