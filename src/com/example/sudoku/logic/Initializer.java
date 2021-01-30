@@ -23,16 +23,17 @@ public class Initializer {
     public static Initializer getInstance() {
         if (instance == null) {
             instance = new Initializer();
+            instance.init();
         }
         return instance;
     }
 
-    public void init(FieldSize fieldSize) {
-        BoardFactory boardFactory = new BoardFactory(fieldSize);
-        Random random = new Random();
-        CellHider cellHider = new CellHider(random);
-        SudokuStorage sudokuStorage = new SudokuStorage();
-        SudokuGenerator sudokuGenerator = new SudokuGenerator(boardFactory, cellHider, sudokuStorage);
+    public void init() {
+        random = new Random();
+        boardFactory = new BoardFactory(random);
+        cellHider = new CellHider(random);
+        sudokuStorage = new SudokuStorage();
+        sudokuGenerator = new SudokuGenerator(boardFactory, cellHider, sudokuStorage);
         sudokuGenerator.fillStorage();
     }
 }

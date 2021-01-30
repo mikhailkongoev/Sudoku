@@ -55,8 +55,7 @@ public class StartController implements Initializable {
         Scene scene = new Scene(page);
         stage.setScene(scene);
         GameController controller = loader.getController();
-        controller.createField(FieldSize.SMALL);
-
+        controller.createField(fs.getFieldSize());
     }
 
 }

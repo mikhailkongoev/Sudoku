@@ -9,14 +9,17 @@ import java.util.List;
 import java.util.Random;
 
 public class BoardFactory {
-    private FieldSize fieldSize;
+    private static final int NUMBERS_OF_TRANSFORMATIONS = 50;
+
+    private FieldSize fieldSize = FieldSize.SMALL;
+    private final Random random;
 
     public FieldSize getFieldSize() {
         return fieldSize;
     }
 
-    public BoardFactory(FieldSize fieldSize) {
-        this.fieldSize = fieldSize;
+    public BoardFactory(Random random) {
+        this.random = random;
     }
 
     /**
@@ -84,8 +87,6 @@ public class BoardFactory {
     }
 
     private int[][] transformBoardManyTimes(int[][] board) {
-        final int NUMBERS_OF_TRANSFORMATIONS = 50;
-        Random random = new Random();
         BoardTransformer[] boardTransformers = new BoardTransformer[NUMBERS_OF_TRANSFORMATIONS];
         for (int i = 0; i < boardTransformers.length; i++) {
             int choiceTransform = random.nextInt(5) + 1;
@@ -111,6 +112,9 @@ public class BoardFactory {
         return board;
     }
 
+    public void setFieldSize(FieldSize fieldSize) {
+        this.fieldSize = fieldSize;
+    }
 }
 
 

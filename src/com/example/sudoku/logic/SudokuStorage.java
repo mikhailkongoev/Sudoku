@@ -1,22 +1,19 @@
 package com.example.sudoku.logic;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.EnumMap;
+import java.util.Map;
 
 
 public class SudokuStorage {
-    private HashMap<Level, ArrayList<Sudoku>> storage;
+    private final Map<Level, ArrayList<Sudoku>> storage;
 
-    public HashMap<Level, ArrayList<Sudoku>> getStorage() {
+    public Map<Level, ArrayList<Sudoku>> getStorage() {
         return storage;
     }
 
-    public void setStorage() {
-        this.storage = storage;
-    }
-
     public SudokuStorage() {
-        storage = new HashMap<>();
+        storage = new EnumMap<>(Level.class);
     }
 
     /**

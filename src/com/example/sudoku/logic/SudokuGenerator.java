@@ -2,6 +2,7 @@ package com.example.sudoku.logic;
 
 import com.example.sudoku.logic.generate.BoardFactory;
 import com.example.sudoku.logic.hidecells.CellHider;
+import java.util.Arrays;
 
 public class SudokuGenerator {
     interface TableGeneratedCallback {
@@ -44,10 +45,15 @@ public class SudokuGenerator {
      * fills the storage sudoku
      */
     public void fillStorage() {
-        for (int i = 0; i < 100; i++) {
-            Sudoku sudoku = new Sudoku(cellHider.makeBoardWithHiddenCells(boardFactory.generateBoard()));
-            sudokuStorage.add(sudoku);
-        }
+        Arrays.stream(FieldSize.values()).forEach(fieldSize -> {
+            boardFactory.setFieldSize(fieldSize);
+
+            for (int i = 0; i < 100; i++) {
+                Sudoku sudoku = new Sudoku(cellHider.makeBoardWithHiddenCells(boardFactory.generateBoard()));
+                sudokuStorage.add(sudoku);
+            }
+        });
+
         if (tableGeneratedCallback != null) tableGeneratedCallback.onTableReady();
     }
 }

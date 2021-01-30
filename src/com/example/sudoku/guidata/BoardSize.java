@@ -3,12 +3,12 @@ package com.example.sudoku.guidata;
 import com.example.sudoku.logic.FieldSize;
 
 public class BoardSize {
-    private FieldSize fieldsize;
+    private FieldSize fieldSize;
     private int row;
     private int column;
 
-    public FieldSize getFieldsize() {
-        return fieldsize;
+    public FieldSize getFieldSize() {
+        return fieldSize;
     }
 
     public int getRow() {
@@ -22,7 +22,7 @@ public class BoardSize {
 
 
     public BoardSize(FieldSize fieldSize) {
-        this.fieldsize = fieldSize;
+        this.fieldSize = fieldSize;
         this.row = fieldSize.getSize();
         this.column = fieldSize.getSize();
     }
