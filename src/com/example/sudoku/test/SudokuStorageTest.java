@@ -1,32 +1,31 @@
 package com.example.sudoku.test;
 
+import com.example.sudoku.logic.FieldSize;
+import com.example.sudoku.logic.Level;
+import com.example.sudoku.logic.Sudoku;
+import com.example.sudoku.logic.SudokuStorage;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
+import org.junit.jupiter.api.Assertions;
+import org.mockito.Mockito;
 
 public class SudokuStorageTest {
-    private SudokuStorageStub iSudokuStorage = new SudokuStorageStub();
+    private SudokuStorage iSudokuStorage = new SudokuStorage();
 
 
     @Test
     public void testThatSudokuIsAddedToTheList() {
-        int sudoku = 1;
-        int key = 2;
-        iSudokuStorage.add(sudoku, key);
+        FieldSize fieldSize = FieldSize.SMALL;
+        Level level = Level.EASY;
 
-        Assert.assertTrue(iSudokuStorage.getStorage().get(key).equals(sudoku));
-    }
+        Sudoku sudoku = Mockito.mock(Sudoku.class);
+        Mockito.when(sudoku.getFieldSize()).thenReturn(fieldSize);
+        Mockito.when(sudoku.getLevel()).thenReturn(level);
 
+        Assertions.assertNull(iSudokuStorage.giveRequesterSudoku(fieldSize, level));
 
-    @Test
-    public void testThatSudokuOfTheRequiredLevel() {
-        int sudoku = 1;
-        int key = 2;
-        iSudokuStorage.add(sudoku, key);
-        int requestedLevel = 2;
-        int requesterSudoku = iSudokuStorage.giveRequesterSudoku(requestedLevel);
-        Assert.assertEquals(sudoku, requesterSudoku);
+        iSudokuStorage.add(sudoku);
+
+        Assert.assertEquals(iSudokuStorage.giveRequesterSudoku(fieldSize, level), sudoku);
     }
 }
